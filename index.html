@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Analogue Clock</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-image: url("https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjEwMTYtYy0wOF8xLWtzaDZtemEzLmpwZw.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .clock {
+            width: 18rem;
+            height: 18rem;
+            border: 20px solid white;
+            border-radius: 50%;
+            margin: 50px auto;
+            position: relative;
+            padding: 2rem;
+            box-shadow:
+                0 0 0 4px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 3px #EFEFEF,
+                inset 0 0 10px black,
+                0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform: translateY(-3px);
+            /* account for the height of the clock hands */
+        }
+
+        .hand {
+            width: 50%;
+            height: 6px;
+            background: white;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            /* transform: rotate(90deg); */
+        }
+
+        .sec-hand {
+            transform-origin: 99%;
+            top: 49%;
+            left: 0.5%;
+
+        }
+
+        .mid-dot {
+            height: 25px;
+            width: 25px !important;
+            border-radius: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) !important;
+        }
+
+        .min-hand {
+            width: 43%;
+            transform-origin: 80%;
+            top: 49%;
+            left: 15.5%;
+        }
+
+        .hr-hand {
+            width: 35%;
+            transform-origin: 79%;
+            top: 49%;
+            left: 22%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="clock-face">
+            <div class="hand sec-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand hr-hand"></div>
+            <div class="hand mid-dot"></div>
+        </div>
+    </div>
+</body>
+<script>
+    let secHand = document.querySelector(".sec-hand")
+    let minHand = document.querySelector(".min-hand")
+    let hrHand = document.querySelector(".hr-hand")
+    setClockTime()
+    setInterval(setClockTime, 1000)
+
+    function setClockTime() {
+        let currTime = new Date();
+        let secHandDeg = (360 / 60) * currTime.getSeconds() + 90;
+        let minHandDeg = (360 / 60) * currTime.getMinutes() + 90;
+        let hrHandDeg = ((360 / 12) * currTime.getHours()) + ((30 / 60) * currTime.getMinutes()) + 90;
+        secHand.style.transform = `rotate(${secHandDeg}deg)`
+        minHand.style.transform = `rotate(${minHandDeg}deg)`
+        hrHand.style.transform = `rotate(${hrHandDeg}deg)`
+
+    }
+
+
+
+</script>
+
+</html>
